@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  source-udp-forwarder:
+    image: alpine:3.8
+    user: ${UID}:${GID}
+    # No need to publish ports, since we're using host networking. If you prefer container networking, comment out network_mode, and uncomment this.
+    # ports:
+    #   - target: 80
+    #     published: 80
+    #     protocol: tcp
+    #     mode: host
+    network_mode: host
+    environment:
+      - FOO=BAR
+    entrypoint: /${BIN?:err}
+    volumes:
+      - ${OUTBIN?:err}:/${BIN?:err}
