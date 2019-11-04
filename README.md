@@ -1,5 +1,15 @@
 # Go app template build environment
-[![Build Status](https://travis-ci.org/thockin/go-build-template.svg?branch=master)](https://travis-ci.org/thockin/go-build-template) 
+
+<!--
+[![Build Status](https://travis-ci.org/thockin/go-build-template.svg?branch=master)](https://travis-ci.org/thockin/go-build-template)
+-->
+
+[![github-actions](https://github.com/theohbrothers/go-build-template/workflows/ci/badge.svg)](https://github.com/theohbrothers/go-build-template/actions)
+[![github-tag](https://img.shields.io/github/tag/theohbrothers/go-build-template)](https://github.com/theohbrothers/go-build-template/releases/)
+[![docker-image-size](https://img.shields.io/microbadger/image-size/theohbrothers/go-build-template/latest)](https://hub.docker.com/r/theohbrothers/go-build-template)
+[![docker-image-layers](https://img.shields.io/microbadger/layers/theohbrothers/go-build-template/latest)](https://hub.docker.com/r/theohbrothers/go-build-template)
+[![codecov](https://codecov.io/gh/theohbrothers/go-build-template/branch/master/graph/badge.svg)](https://codecov.io/gh/theohbrothers/go-build-template)
+[![go-report-card](https://goreportcard.com/badge/github.com/theohbrothers/go-build-template)](https://goreportcard.com/report/github.com/theohbrothers/go-build-template)
 
 This is a skeleton project for a Go application, which captures the best build
 techniques I have learned to date.  It uses a Makefile to drive the build (the
