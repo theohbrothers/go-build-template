@@ -14,30 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -o errexit
-set -o nounset
-set -o pipefail
-
-if [ -z "${OS:-}" ]; then
-    echo "OS must be set"
-    exit 1
-fi
-if [ -z "${ARCH:-}" ]; then
-    echo "ARCH must be set"
-    exit 1
-fi
-if [ -z "${VERSION:-}" ]; then
-    echo "VERSION must be set"
-    exit 1
-fi
+set -eu
 
 export CGO_ENABLED=0
 export GOARCH="${ARCH}"
 export GOOS="${OS}"
-export GO111MODULE=on
-export GOFLAGS="-mod=vendor"
+export GO111MODULE="${GO111MODULE}"
+export GOFLAGS="$GOFLAGS"
 
-go install                                                      \
-    -installsuffix "static"                                     \
-    -ldflags "-X $(go list -m)/pkg/version.VERSION=${VERSION}"  \
-    ./...
+go build -o "$OUTBIN" -ldflags "-s -w -extldflags \"-static\" -X $(go list -m)/pkg/version.VERSION=$VERSION -X $(go list -m)/pkg/version.COMMIT_SHA1=$COMMIT_SHA1 -X $(go list -m)/pkg/version.BUILD_DATE=$BUILD_DATE"
