@@ -26,7 +26,7 @@ GOFLAGS =
 
 # Where to push the docker image.
 REGISTRY ?= docker.io
-REGISTRY_USER ?= startersclan
+REGISTRY_USER ?= theohbrothers
 
 ###
 ### These variables should not need tweaking.
