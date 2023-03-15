@@ -54,14 +54,14 @@ MAKEFLAGS += --no-builtin-rules
 MAKEFLAGS += --warn-undefined-variables
 .SUFFIXES:
 
-# Used internally.  Users should pass GOOS and/or GOARCH.
-OS := $(if $(GOOS),$(GOOS),$(shell go env GOOS))
-ARCH := $(if $(GOARCH),$(GOARCH),$(shell go env GOARCH))
-
-TAG := $(VERSION)__$(OS)_$(ARCH)
-
 GO_VERSION := 1.20
 BUILD_IMAGE := golang:$(GO_VERSION)-alpine
+
+# Used internally.  Users should pass GOOS and/or GOARCH.
+OS := $(if $(GOOS),$(GOOS),$(shell docker run --rm $(BUILD_IMAGE) go env GOOS))
+ARCH := $(if $(GOARCH),$(GOARCH),$(shell docker run --rm $(BUILD_IMAGE) go env GOARCH))
+
+TAG := $(VERSION)__$(OS)_$(ARCH)
 
 BIN_EXTENSION :=
 ifeq ($(OS), windows)
