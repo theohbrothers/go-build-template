@@ -213,6 +213,23 @@ shell: | $(BUILD_DIRS)
 tools: # @HELP Builds dlv binary
 tools: | $(BUILD_DIRS)
 	# Don't assume that `go` is available locally.
+	mkdir -p bin/wrapper
+
+	echo '#!/bin/sh' > bin/wrapper/dlv
+	echo 'WORKSPACE="$${WORKSPACE:-$(PWD)}"' >> bin/wrapper/dlv
+	echo 'docker run --rm -i -u $$(id -u):$$(id -g) --security-opt=apparmor=unconfined --cap-add=SYS_PTRACE --network host -e GOCACHE=/.cache/gocache -e "GOFLAGS=$$GOFLAGS" -w "$$PWD" -v "$$WORKSPACE:$$WORKSPACE" -v "$$WORKSPACE/.go/cache:/.cache" -v "$$WORKSPACE/bin/tools/dlv:/usr/local/bin/dlv" $(BUILD_IMAGE) dlv "$$@"' >> bin/wrapper/dlv
+	chmod +x bin/wrapper/dlv
+
+	echo '#!/bin/sh' > bin/wrapper/go
+	echo 'WORKSPACE="$${WORKSPACE:-$(PWD)}"' >> bin/wrapper/go
+	echo 'docker run --rm -i -u $$(id -u):$$(id -g) -e GOCACHE=/.cache/gocache -e GOMODCACHE=/.cache/gomodcache -e "GOFLAGS=$$GOFLAGS" -w "/src" -v "$$WORKSPACE:/src" -v "$$WORKSPACE/.go/cache:/.cache" $(BUILD_IMAGE) go "$$@"' >> bin/wrapper/go
+	chmod +x bin/wrapper/go
+
+	echo '#!/bin/sh' > bin/wrapper/gopls
+	echo 'WORKSPACE="$${WORKSPACE:-$(PWD)}"' >> bin/wrapper/gopls
+	echo 'docker run --rm -i -u $$(id -u):$$(id -g) -e GOCACHE=/.cache/gocache -e GOMODCACHE=/.cache/gomodcache -e "GOFLAGS=$$GOFLAGS" -w "$$WORKSPACE" -v "$$WORKSPACE:/$$WORKSPACE" -v "$$WORKSPACE/.go/cache:/.cache" -v "$$WORKSPACE/bin/tools/gopls:/usr/local/bin/gopls" $(BUILD_IMAGE) gopls "$$@"' >> bin/wrapper/gopls
+	chmod +x bin/wrapper/gopls
+
 	docker run                                 \
 	    --rm                                   \
 	    -u $$(id -u):$$(id -g)                 \

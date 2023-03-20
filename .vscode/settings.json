@@ -2,13 +2,13 @@
     // "go.delveConfig": {
     //     "debugAdapter": "dlv-dap",
     // },
-    // "go.useLanguageServer": true,
+    "go.useLanguageServer": true,
     // "go.goroot": "/usr/lib/go",
-    "go.goroot": "${workspaceFolder}",
+    "go.goroot": "${workspaceFolder}/bin/wrapper",
     "go.alternateTools": {
-        "go": "${workspaceFolder}/go",
-        "dlv": "${workspaceFolder}/dlv",
-        "gopls": "${workspaceFolder}/gopls"
+        "go": "${workspaceFolder}/bin/wrapper/go",
+        "dlv": "${workspaceFolder}/bin/wrapper/dlv",
+        "gopls": "${workspaceFolder}/bin/wrapper/gopls"
     },
     "go.toolsEnvVars": {
         "WORKSPACE": "${workspaceFolder}"
