@@ -62,3 +62,19 @@ building, this will use docker to execute.
 
 The golangci-lint tool looks for configuration in `.golangci.yaml`.  If that
 file is not provided, it will use its own built-in defaults.
+
+## Containerized debugging
+
+```sh
+make tools
+code --install-extension golang.go@0.38.0
+# Open a .go file and press F5
+```
+
+## Links
+
+- https://github.com/golang/vscode-go/wiki/debugging
+- https://www.jetbrains.com/help/go/attach-to-running-go-processes-with-debugger.html#attach-to-a-process-in-the-docker-container
+- https://github.com/go-delve/delve/tree/master/Documentation/usage
+- https://rohanverma.net/blog/2019/11/05/containerized-dev-using-remote-gopls/
+- https://jerome-ran.medium.com/golang-remote-debugging-with-visual-studio-code-a918de5d83f3

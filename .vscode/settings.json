@@ -1,0 +1,30 @@
+{
+    // "go.delveConfig": {
+    //     "debugAdapter": "dlv-dap",
+    // },
+    // "go.useLanguageServer": true,
+    // "go.goroot": "/usr/lib/go",
+    "go.goroot": "${workspaceFolder}",
+    "go.alternateTools": {
+        "go": "${workspaceFolder}/go",
+        "dlv": "${workspaceFolder}/dlv",
+        "gopls": "${workspaceFolder}/gopls"
+    },
+    "go.toolsEnvVars": {
+        "WORKSPACE": "${workspaceFolder}"
+    },
+    "go.languageServerFlags": [
+        "-rpc.trace"
+    ],
+    "gopls": {
+        "verboseOutput": true,
+        "build.env": {
+            // "GOPATH": "/src"
+            // "GOROOT": "/src"
+        }
+    },
+    // "go.delveConfig": {},
+    // "gopls": {
+    // },
+    // "go.goroot": "/mnt/git/github.com/theohbrothers/go-build-template/go"
+}

@@ -19,10 +19,12 @@ package main
 
 import (
 	"log"
+	"time"
 
 	"github.com/thockin/go-build-template/pkg/version"
 )
 
 func main() {
-	log.Printf("version: %s\n", version.Version)
+	now := time.Now()
+	log.Printf("version: %s\n %v", version.Version, now)
 }

@@ -209,6 +209,29 @@ shell: | $(BUILD_DIRS)
 	    $(BUILD_IMAGE)                                          \
 	    /bin/sh $(CMD)
 
+.PHONY: tools
+tools: # @HELP Builds dlv binary
+tools: | $(BUILD_DIRS)
+	# Don't assume that `go` is available locally.
+	docker run                                 \
+	    --rm                                   \
+	    -u $$(id -u):$$(id -g)                 \
+	    -v $$(pwd)/tools:/src                  \
+	    -w /src                                \
+	    -v $$(pwd)/bin/tools:/go/bin           \
+	    -v $$(pwd)/.go/cache:/.cache           \
+	    --env GOCACHE="/.cache/gocache"        \
+	    --env GOMODCACHE="/.cache/gomodcache"  \
+	    --env CGO_ENABLED=0                    \
+	    --env HTTP_PROXY="$(HTTP_PROXY)"       \
+	    --env HTTPS_PROXY="$(HTTPS_PROXY)"     \
+	    $(BUILD_IMAGE)                         \
+		sh -c ' \
+			set -eux; \
+			go install github.com/go-delve/delve/cmd/dlv@v1.20.1; \
+	    	go install golang.org/x/tools/gopls@v0.11.0; \
+		'
+
 LICENSES = .licenses
 
 $(LICENSES): | $(BUILD_DIRS)

@@ -1,0 +1,18 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "go: build package",
+			"type": "shell",
+			"command": "build",
+			"args": [
+				"${fileDirname}"
+			],
+			"problemMatcher": [
+				"$go"
+			],
+			"group": "build",
+			"detail": "cd /mnt/git/github.com/theohbrothers/go-build-template; go build ${fileDirname}"
+		}
+	]
+}

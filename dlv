@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+(date -Iseconds; echo dlv) >> ~/date.txt
+GOCACHE=/.cache/gocache
+GOMODCACHE=/.cache/gomodcache
+docker run --rm -i -u $(id -u):$(id -g) --security-opt=apparmor=unconfined --cap-add=SYS_PTRACE --network host -e "GOCACHE=$GOCACHE" -e "GOFLAGS=$GOFLAGS" -w "$PWD" -v "$WORKSPACE:$WORKSPACE" -v "$WORKSPACE/.go/cache:/.cache" -v "$WORKSPACE/bin/tools/dlv:/usr/local/bin/dlv" golang:1.20-alpine dlv "$@"
+# docker run --rm -it -p 2345:2345 -v $(pwd):/src -w /src dlv dlv debug ./cmd/myapp-1 --output ./bin/test
+# docker run --rm -it -p 2345:2345 -v $(pwd):/src -w /src dlv dlv debug ./cmd/myapp-1 --output ./bin/test
+# /go/bin/tools/dlv --listen=:40000 --headless=true --api-version=2 debug /src/bin/linux_amd64/myapp-1
+# /go/bin/tools/dlv --listen=:2345 --headless --api-version=2 --log exec /src/bin/linux_amd64/myapp-1
